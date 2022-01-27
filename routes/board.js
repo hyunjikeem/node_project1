@@ -6,9 +6,11 @@ const Write = require("../schemas/write");
 
 
 router.get("/board", async (req, res) => {
-    const write = await Write.find({}).sort("-userId");
+    const write = await Write.find({}).sort("-userId"); //내림차순으로 나타나게 하기
     res.json(write);
 });
+
+// 작성하기 부분
 
 router.post('/write', async function (req, res, next) {
     const recentList = await Write.find().sort("-userId").limit(1);
@@ -28,6 +30,8 @@ router.post('/write', async function (req, res, next) {
     res.send({result: "success"});
 });
 
+// 글 수정
+
 router.get('/modify/:userId', async (req, res) => {
     try {
         const {userId} = req.params;
@@ -37,6 +41,8 @@ router.get('/modify/:userId', async (req, res) => {
         console.error(err);
     }
 });
+
+// 글 작성 내용 부분
 
 router.get('/detail/:userId', async (req, res) => {
     try {
@@ -48,18 +54,23 @@ router.get('/detail/:userId', async (req, res) => {
     }
 });
 
+// 글 수정하기 부분
+
 router.post('/modify/:userId', async (req, res) => {
     const {userId, name, title, desc, pw} = req.body;
 
     let write = await Write.findOne({userId});
 
+    // 비밀번호가 일치하다면
     if (write.pw === pw) {
         await Write.updateOne({userId}, {$set: {name:name, title:title, desc:desc}});
         res.send({result: "success"});
-    } else {
+    } else { //비밀번호가 다르다면
         res.send({result: "fail"});
     }
 });
+
+// 글 삭제하기
 
 router.delete('/modify/:userId', async (req, res) => {
     const {userId} = req.params;
@@ -67,10 +78,11 @@ router.delete('/modify/:userId', async (req, res) => {
 
     let write = await Write.findOne({userId});
 
+    // 비밀번호가 일치하다면 글 삭제
     if (write.pw === pw) {
         await Write.deleteOne({userId});
         res.send({result: "success"});
-    } else {
+    } else { //다르다면 실패
         res.send({result: "fail"});
     }
 });

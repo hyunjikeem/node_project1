@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-//아이디, 작성자명, 비밀번호, 제목, 내용, 날짜
+//userId = 게시글번호, 작성자명, 비밀번호, 제목, 내용, 날짜
 
 const writeSchema = new Schema ({
     userId: {

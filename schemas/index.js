@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//몽고디비 연결
+
 const connect = () => {
     mongoose.connect('mongodb://localhost:27017/hanghaeblog', {
         useNewUrlParser: true,
