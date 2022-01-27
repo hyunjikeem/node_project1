@@ -53,8 +53,8 @@
     function maketb(list) {
         let tempHtml = `<tr>
                             <th scope="row">${list["userId"]}</th>
-                            <td><a href="/detail?userId=${list["userId"]}">${list["name"]}</td>
-                            <td>${list["title"]}</td>
+                            <td><a href="/detail?userId=${list["userId"]}">${list["title"]}</td>
+                            <td>${list["name"]}</td>
                             <td>${list.date}</td>
                         </tr>`;
         $("#postList").append(tempHtml);
